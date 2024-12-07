@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>113306039_Lab3</title>
+</head>
+<body>
+	<h1>113306039_Lab3_Number Guessing Game</h1>
+	<div id = "gameResult"></div>
+	<script src = game.js></script>
+</body>
+<script>
+	var secretNumber = Math.floor((Math.random() * 100) + 1);
+	var maxAttempts = 7;
+	var attemptsLeft = maxAttempts;
+	//初始上下限
+	var max = 100;
+	var min = 1;
+	alert("歡迎來到數字猜測遊戲");
+	while(attemptsLeft > 0){
+		var input = window.prompt('請輸入' + min + '~' + max + '之間的數字\n還剩下' + attemptsLeft + '次機會');
+
+		if(input === null || input.trim() === ""){
+			alert('請輸入有效數字!(不能選擇範圍的上下限)');
+			continue;
+		}
+		//convert input to integer
+		var guess = parseInt(input, 10);
+		//確保輸入值為數字並在有效範圍內
+		if(isNaN(guess) || guess <= 1 || guess >= 100){
+			alert("請輸入1到100的數字!");
+			continue;
+		}
+		attemptsLeft --;
+
+		if(guess === secretNumber){
+			alert("恭喜你答對了! 終極密碼是" + secretNumber);
+			document.getElementById("gameResult").innerHTML = '<p>你猜對了！</p><img src="correct.jpg" alt="Correct">';
+			break;
+		}else if(attemptsLeft === 0){
+			alert('遊戲結束!正確答案是 ' + secretNumber);
+			document.getElementById("gameResult").innerHTML = '<img src = "wrong.jpg" alt="Wrong">';
+		}else if(guess < secretNumber){
+			min = guess;
+			alert("太小了，請輸入" + min + "~" + max + "之間的數字\n還剩下" + attemptsLeft + "次機會");
+		}else{
+			max = guess;
+			alert("太大了，請輸入" + min + "~" + max +"之間的數字\n還剩下" + attemptsLeft + "次機會");
+		}
+	}
+</script>
+</html>
